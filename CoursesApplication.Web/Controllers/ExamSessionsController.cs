@@ -1,4 +1,5 @@
-﻿using CoursesApplication.Service.Interface;
+﻿using CoursesApplication.Domain.Models;
+using CoursesApplication.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoursesApplication.Web.Controllers
@@ -15,9 +16,10 @@ namespace CoursesApplication.Web.Controllers
         // GET: ExamSessions/Details/5
         public IActionResult Details(Guid id)
         {
-            // TODO: Implement method
-            // Create ViewModel/DTO with list of all the courses in the session and the TotalCount or pass it through ViewData/ViewBag
-            throw new NotImplementedException();
+            var examSession = _examSessionService.GetExamSessionDetails(id);
+            if (examSession == null)
+                return NotFound();
+            return View(examSession);
         }
     }
 }

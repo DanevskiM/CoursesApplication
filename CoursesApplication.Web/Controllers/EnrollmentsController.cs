@@ -17,11 +17,13 @@ namespace CoursesApplication.Web.Controllers
     {
         private readonly IStudentService _studentService;
         private readonly IEnrollmentService _enrollmentService;
+        private readonly IExamSessionService _examSessionService;
 
-        public EnrollmentsController(IStudentService studentService, IEnrollmentService enrollmentService)
+        public EnrollmentsController(IExamSessionService examSessionService, IStudentService studentService, IEnrollmentService enrollmentService)
         {
             _studentService = studentService;
             _enrollmentService = enrollmentService;
+            _examSessionService = examSessionService;
         }
 
         public IActionResult Index()
@@ -55,16 +57,21 @@ namespace CoursesApplication.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(Guid id)
         {
-            // TODO: Implement method
-            throw new NotImplementedException();
+            var enrollments = _enrollmentService.GetById(id);
+            if(enrollments!=null)
+            {
+                _enrollmentService.DeleteById(id);
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost, ActionName("CreateExamSession")]
         public IActionResult CreateExamSession(Guid id)
         {
-            // TODO: Implement method
-            // Find the current user, call the service method and when successful redirect to details of ExamSessions CSontroller
             throw new NotImplementedException();
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var examSession = _examSessionService.CreateExamSession(id);
+            return RedirectToAction("Details", "ExamSessions", new { id = examSession.Id });
         }
     }
 }

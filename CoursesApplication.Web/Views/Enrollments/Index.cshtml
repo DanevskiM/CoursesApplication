@@ -8,7 +8,9 @@
 
 <p>
     <a asp-action="Create">Create New</a>
-    <!-- TODO: Add CreateExamSession button -->
+    <form asp-action="CreateExamSession" method="post">
+        <button class="btn btn-primary" type="submit">CreateExamSession</button>
+    </form>
 </p>
 <table class="table">
     <thead>
@@ -50,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.User.Id)
             </td>
             <td>
-                <!-- TODO: Add Delete button -->
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

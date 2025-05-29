@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CoursesApplication.Domain.Models.Lecture>
+﻿@model CoursesApplication.Domain.Models.ExamSessionSignUp
 
 @{
     ViewData["Title"] = "Index";
@@ -10,14 +10,23 @@
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
-    <!-- TODO: Create table for ExamSession -->
-    <!-- Look at the table at any of the Index pages for help -->
-    <!-- Iterate through Model.CoursesInExamSession -->
-    <!-- Display: Course Name, Course Semester -->
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Course Semester</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in @Model.CourseInExamSessions)
+        {
+            <td>@item.Course.Name</td>
+            <td>@item.Course.Semester</td>
+        }
+    </tbody>
 </table>
 
 
-<!-- TODO: Display total number of course exams in the session -->
 <div>
     <p>Total Number of Exams: </p>
+    @Model.CourseInExamSessions.Sum(x => x.Quantity);
 </div>

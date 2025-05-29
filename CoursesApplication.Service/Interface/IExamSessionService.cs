@@ -10,5 +10,6 @@ namespace CoursesApplication.Service.Interface
     public interface IExamSessionService
     {
         ExamSessionSignUp GetExamSessionDetails(Guid id);
+        ExamSessionSignUp CreateExamSession(Guid id);
     }
 }

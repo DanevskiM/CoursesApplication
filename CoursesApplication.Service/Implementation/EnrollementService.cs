@@ -25,8 +25,17 @@ namespace CoursesApplication.Service.Implementation
 
         public Enrollment DeleteById(Guid id)
         {
-            // TODO: Implement method
-            throw new NotImplementedException();
+            var enrollment = _enrollementRepository.Get(
+                selector: x => x,
+                predicate: x => x.Id == id,
+                include: x => x.Include(y => y.Course).
+                                Include(y => y.User).
+                                Include(y => y.Student));
+            if (enrollment == null)
+            {
+                throw new Exception("Enrollment not found");
+            }
+            return _enrollementRepository.Delete(enrollment);
         }
 
         public Enrollment EnrollStudentOnCourse(Guid studentId, Guid courseId, string userId, bool reEnroll)
